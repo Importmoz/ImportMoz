@@ -28,11 +28,12 @@ const CBMCalculator = () => {
     {
       id: 1,
       description: "",
-      unit: "cm",
+      unit: "?", // Default unit placeholder
       length: "",
       width: "",
       height: "",
       quantity: "",
+      errors: {}, // Object to store validation errors
     },
   ]);
 
@@ -41,17 +42,35 @@ const CBMCalculator = () => {
     totalQuantity: 0,
   });
 
+  // Reset articles when calculation type changes
+  const resetArticles = () => {
+    setArticles([
+      {
+        id: 1,
+        description: "",
+        unit: "?", // Reset to default placeholder
+        length: "",
+        width: "",
+        height: "",
+        quantity: "",
+        errors: {},
+      },
+    ]);
+    setTotals({ totalVolume: 0, totalQuantity: 0 }); // Reset totals
+  };
+
   const addArticle = () => {
     setArticles((prev) => [
       ...prev,
       {
         id: prev.length + 1,
         description: "",
-        unit: "cm",
+        unit: "?", // Default unit placeholder
         length: "",
         width: "",
         height: "",
         quantity: "",
+        errors: {},
       },
     ]);
   };
@@ -64,17 +83,44 @@ const CBMCalculator = () => {
     const { name, value } = e.target;
     setArticles((prev) =>
       prev.map((article) =>
-        article.id === id ? { ...article, [name]: value } : article
+        article.id === id ? { ...article, [name]: value, errors: {} } : article
       )
     );
   };
 
   const handleUnitChange = (id, value) => {
+    console.log(`Unit changed for article ${id}: ${value}`); // Debugging
     setArticles((prev) =>
       prev.map((article) =>
-        article.id === id ? { ...article, unit: value } : article
+        article.id === id ? { ...article, unit: value, errors: {} } : article
       )
     );
+  };
+
+  const validateArticle = (article) => {
+    const { length, width, height, quantity, unit } = article;
+    const errors = {};
+
+    // Validate numeric fields
+    if (!length || isNaN(length) || parseFloat(length) <= 0) {
+      errors.length = "Comprimento deve ser um número positivo.";
+    }
+    if (!width || isNaN(width) || parseFloat(width) <= 0) {
+      errors.width = "Largura deve ser um número positivo.";
+    }
+    if (!height || isNaN(height) || parseFloat(height) <= 0) {
+      errors.height = "Altura deve ser um número positivo.";
+    }
+    if (!quantity || isNaN(quantity) || parseInt(quantity) <= 0) {
+      errors.quantity = "Quantidade deve ser um número inteiro positivo.";
+    }
+
+    // Validate unit
+    if (unit === "?") {
+      errors.unit = "Selecione uma unidade válida.";
+    }
+
+    return errors;
   };
 
   const calculateCBM = () => {
@@ -82,18 +128,18 @@ const CBMCalculator = () => {
     let totalQuantityCalculated = 0;
 
     const calculatedArticles = articles.map((article) => {
-      const { length, width, height, quantity, unit, description } = article;
-
-      // Input validation
-      if (!length || !width || !height || !quantity) {
-        return { ...article, error: "Preencha todos os campos" };
+      const errors = validateArticle(article);
+      if (Object.keys(errors).length > 0) {
+        return { ...article, errors };
       }
+
+      const { length, width, height, quantity, unit } = article;
 
       // Convert to numbers
       const len = parseFloat(length);
       const wid = parseFloat(width);
       const hei = parseFloat(height);
-      const quan = parseFloat(quantity);
+      const quan = parseInt(quantity);
 
       // Convert to meters
       const conversionFactor = CONVERSION_UNITS[unit];
@@ -124,11 +170,9 @@ const CBMCalculator = () => {
   };
 
   return (
-
-    
-    <Card className="w-full max-w-2xl mx-auto mt-8 light-mint-bg"  >
+    <Card className="w-full max-w-2xl mx-auto mt-8 light-mint-bg">
       <CardHeader>
-        <CardTitle  className= "content">Calculadora CBM</CardTitle>
+        <CardTitle className="content">Calculadora CBM</CardTitle>
       </CardHeader>
       <CardContent>
         {/* Calculation Type Selection */}
@@ -140,7 +184,11 @@ const CBMCalculator = () => {
                 ? "bg-green-500 text-white"
                 : "bg-white text-gray-700"
             }`}
-            onClick={() => setCalculationType("single")}
+            onClick={() => {
+              setCalculationType("single");
+              resetArticles(); // Reset articles when switching to "single"
+            }}
+            aria-label="Selecionar cálculo único"
           >
             Único
           </Button>
@@ -151,7 +199,11 @@ const CBMCalculator = () => {
                 ? "bg-green-500 text-white"
                 : "bg-white text-gray-700"
             }`}
-            onClick={() => setCalculationType("multiple")}
+            onClick={() => {
+              setCalculationType("multiple");
+              resetArticles(); // Reset articles when switching to "multiple"
+            }}
+            aria-label="Selecionar cálculo múltiplo"
           >
             Múltiplo
           </Button>
@@ -168,6 +220,7 @@ const CBMCalculator = () => {
                   value={articles[0].description}
                   onChange={(e) => handleInputChange(1, e)}
                   placeholder="Ex: Caixa de Papelão"
+                  aria-label="Descrição do artigo"
                 />
               </div>
               <div>
@@ -176,6 +229,7 @@ const CBMCalculator = () => {
                   value={articles[0].unit}
                   onValueChange={(value) => handleUnitChange(1, value)}
                   className="w-[75px]"
+                  aria-label="Selecionar unidade de medida"
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="?" />
@@ -189,6 +243,11 @@ const CBMCalculator = () => {
                     <SelectItem value="ft">Pés (ft)</SelectItem>
                   </SelectContent>
                 </Select>
+                {articles[0].errors.unit && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {articles[0].errors.unit}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4 mb-4">
@@ -200,7 +259,14 @@ const CBMCalculator = () => {
                   value={articles[0].length}
                   onChange={(e) => handleInputChange(1, e)}
                   placeholder="Ex: 50"
+                  className={articles[0].errors.length ? "border-red-500" : ""}
+                  aria-label="Comprimento do artigo"
                 />
+                {articles[0].errors.length && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {articles[0].errors.length}
+                  </p>
+                )}
               </div>
               <div>
                 <Label>Quantidade</Label>
@@ -210,7 +276,14 @@ const CBMCalculator = () => {
                   value={articles[0].quantity}
                   onChange={(e) => handleInputChange(1, e)}
                   placeholder="Ex: 10"
+                  className={articles[0].errors.quantity ? "border-red-500" : ""}
+                  aria-label="Quantidade do artigo"
                 />
+                {articles[0].errors.quantity && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {articles[0].errors.quantity}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
@@ -222,7 +295,14 @@ const CBMCalculator = () => {
                   value={articles[0].width}
                   onChange={(e) => handleInputChange(1, e)}
                   placeholder="Ex: 30"
+                  className={articles[0].errors.width ? "border-red-500" : ""}
+                  aria-label="Largura do artigo"
                 />
+                {articles[0].errors.width && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {articles[0].errors.width}
+                  </p>
+                )}
               </div>
               <div>
                 <Label>Altura</Label>
@@ -232,7 +312,14 @@ const CBMCalculator = () => {
                   value={articles[0].height}
                   onChange={(e) => handleInputChange(1, e)}
                   placeholder="Ex: 20"
+                  className={articles[0].errors.height ? "border-red-500" : ""}
+                  aria-label="Altura do artigo"
                 />
+                {articles[0].errors.height && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {articles[0].errors.height}
+                  </p>
+                )}
               </div>
             </div>
           </div>
@@ -247,6 +334,7 @@ const CBMCalculator = () => {
                   <button
                     onClick={() => removeArticle(article.id)}
                     className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                    aria-label="Remover artigo"
                   >
                     <Trash2 size={20} />
                   </button>
@@ -260,6 +348,7 @@ const CBMCalculator = () => {
                       value={article.description}
                       onChange={(e) => handleInputChange(article.id, e)}
                       placeholder="Ex: Caixa de Papelão"
+                      aria-label="Descrição do artigo"
                     />
                   </div>
                   <div>
@@ -270,6 +359,7 @@ const CBMCalculator = () => {
                         handleUnitChange(article.id, value)
                       }
                       className="w-[75px]"
+                      aria-label="Selecionar unidade de medida"
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="?" />
@@ -283,6 +373,11 @@ const CBMCalculator = () => {
                         <SelectItem value="ft">Pés (ft)</SelectItem>
                       </SelectContent>
                     </Select>
+                    {article.errors.unit && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {article.errors.unit}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="grid grid-cols-3 gap-4 mb-4">
@@ -294,7 +389,14 @@ const CBMCalculator = () => {
                       value={article.length}
                       onChange={(e) => handleInputChange(article.id, e)}
                       placeholder="Ex: 50"
+                      className={article.errors.length ? "border-red-500" : ""}
+                      aria-label="Comprimento do artigo"
                     />
+                    {article.errors.length && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {article.errors.length}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label>Quantidade</Label>
@@ -304,7 +406,14 @@ const CBMCalculator = () => {
                       value={article.quantity}
                       onChange={(e) => handleInputChange(article.id, e)}
                       placeholder="Ex: 10"
+                      className={article.errors.quantity ? "border-red-500" : ""}
+                      aria-label="Quantidade do artigo"
                     />
+                    {article.errors.quantity && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {article.errors.quantity}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -316,7 +425,14 @@ const CBMCalculator = () => {
                       value={article.width}
                       onChange={(e) => handleInputChange(article.id, e)}
                       placeholder="Ex: 30"
+                      className={article.errors.width ? "border-red-500" : ""}
+                      aria-label="Largura do artigo"
                     />
+                    {article.errors.width && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {article.errors.width}
+                      </p>
+                    )}
                   </div>
                   <div>
                     <Label>Altura</Label>
@@ -326,19 +442,23 @@ const CBMCalculator = () => {
                       value={article.height}
                       onChange={(e) => handleInputChange(article.id, e)}
                       placeholder="Ex: 20"
+                      className={article.errors.height ? "border-red-500" : ""}
+                      aria-label="Altura do artigo"
                     />
+                    {article.errors.height && (
+                      <p className="text-red-500 text-sm mt-1">
+                        {article.errors.height}
+                      </p>
+                    )}
                   </div>
                 </div>
-                {article.error && (
-                  <div className="text-red-500 mt-2">{article.error}</div>
-                )}
                 {article.totalCBM && (
                   <div className="mt-4 p-2 bg-gray-100 rounded-lg">
                     <p>
-                    CBM Unitário: <strong>{article.unitVolume}  m³/cbm </strong>
+                      CBM Unitário: <strong>{article.unitVolume} m³/cbm</strong>
                     </p>
                     <p>
-                    CBM Parcial: <strong>{article.totalCBM}  m³/cbm</strong>
+                      CBM Parcial: <strong>{article.totalCBM} m³/cbm</strong>
                     </p>
                   </div>
                 )}
@@ -351,6 +471,7 @@ const CBMCalculator = () => {
                   variant="outline"
                   onClick={addArticle}
                   className="flex items-center"
+                  aria-label="Adicionar novo artigo"
                 >
                   <PlusCircle className="mr-2" size={20} /> Adicionar Artigo
                 </Button>
@@ -360,7 +481,7 @@ const CBMCalculator = () => {
         )}
 
         <div className="mt-4 flex justify-end">
-          <Button onClick={calculateCBM} className="px-8">
+          <Button onClick={calculateCBM} className="px-8" aria-label="Calcular CBM">
             Calcular CBM
           </Button>
         </div>
@@ -369,7 +490,7 @@ const CBMCalculator = () => {
           <div className="mt-6 p-4 bg-blue-50 rounded-lg">
             <h3 className="text-lg font-bold mb-2">Totais</h3>
             <p>
-              CBM Total: <strong>{totals.totalVolume}  m³/cbm</strong>
+              CBM Total: <strong>{totals.totalVolume} m³/cbm</strong>
             </p>
             <p>
               Quantidade Total: <strong>{totals.totalQuantity} Pacotes</strong>
