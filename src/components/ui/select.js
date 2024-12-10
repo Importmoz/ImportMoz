@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-export const Select = ({ children, className, ...props }) => {
+// Contexto para compartilhar estado entre componentes
+const SelectContext = React.createContext();
+
+export const Select = ({ children, className, onValueChange, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(null);
 
@@ -8,7 +11,8 @@ export const Select = ({ children, className, ...props }) => {
     isOpen,
     setIsOpen,
     selectedValue,
-    setSelectedValue
+    setSelectedValue,
+    onValueChange, // Adiciona a função onValueChange ao contexto
   };
 
   return (
@@ -19,9 +23,6 @@ export const Select = ({ children, className, ...props }) => {
     </div>
   );
 };
-
-// Contexto para compartilhar estado entre componentes
-const SelectContext = React.createContext();
 
 export const SelectTrigger = ({ children, className, ...props }) => {
   const { isOpen, setIsOpen, selectedValue } = React.useContext(SelectContext);
@@ -59,11 +60,16 @@ export const SelectContent = ({ children, className, ...props }) => {
 };
 
 export const SelectItem = ({ value, children, className, ...props }) => {
-  const { setSelectedValue, setIsOpen } = React.useContext(SelectContext);
+  const { setSelectedValue, setIsOpen, onValueChange } = React.useContext(SelectContext);
 
   const handleSelect = () => {
     setSelectedValue(value);
     setIsOpen(false);
+
+    // Chama a função onValueChange se fornecida
+    if (onValueChange) {
+      onValueChange(value);
+    }
   };
 
   return (
