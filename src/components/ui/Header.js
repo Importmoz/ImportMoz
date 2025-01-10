@@ -1,8 +1,13 @@
 import React, { useContext } from 'react';
 import { HeaderContext } from '../../context/HeaderContext';
 
-const Header = () => {
+const Header = ({ setCurrentPage }) => {
   const { activeButton, setActiveButton } = useContext(HeaderContext);
+
+  const handleButtonClick = (button) => {
+    setActiveButton(button);
+    setCurrentPage(button); // Atualiza o currentPage para "Inicio" ou "Sobre"
+  };
 
   return (
     <header className="bg-white shadow-sm fixed top-0 left-0 w-full z-50">
@@ -16,7 +21,7 @@ const Header = () => {
             className={`${
               activeButton === "Inicio" ? "bg-cyan-500 text-white font-bold" : "bg-cyan-200 text-cyan-700"
             } w-20 rounded-md p-2 transition duration-300`}
-            onClick={() => setActiveButton("Inicio")}
+            onClick={() => handleButtonClick("Inicio")}
           >
             Inicio
           </button>
@@ -24,7 +29,7 @@ const Header = () => {
             className={`${
               activeButton === "Sobre" ? "bg-cyan-500 text-white font-bold" : "bg-cyan-200 text-cyan-700"
             } w-20 rounded-md p-2 transition duration-300`}
-            onClick={() => setActiveButton("Sobre")}
+            onClick={() => handleButtonClick("Sobre")}
           >
             Sobre
           </button>
