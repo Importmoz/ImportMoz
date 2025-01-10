@@ -67,14 +67,14 @@ const renderCosts = (costs) => {
       return (
         <div key={key} className="mb-4">
           <h3 className="text-lg font-semibold mb-2">{key}</h3>
-          <div className="pl-4">{renderCosts(value)}</div>
+          <div className="pl-4">{renderCosts(value) }</div>
         </div>
       );
     }
     return (
       <div key={key} className="flex justify-between items-center h-full">
         <span className="text-gray-600">{key}:</span>
-        <span className="font-semibold">{value}</span>
+        <span className="font-semibold">{value} Mt</span>
       </div>
     );
   });
@@ -91,7 +91,7 @@ const VehicleDetails = () => {
 
 
   const  despesas = {
-    "CIF Mt": Despesas.Aduaneiro.Aduaneiros.Custos.cifMetical,
+    "Compra & Transporte": Despesas.Aduaneiro.Aduaneiros.Custos.cifMetical,
     "Direitos": Despesas.Aduaneiro.Aduaneiros.Custos.direitos,
     "Imp. Especifico": Despesas.Aduaneiro.Aduaneiros.Custos.ice,
     "Imp. Acrescentado": Despesas.Aduaneiro.Aduaneiros.Custos.iva,
