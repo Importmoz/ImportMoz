@@ -1,11 +1,10 @@
 import React from "react";
-import CBMCalculator from "./CBMCalculator";
-import './styles.css';
+import InicialPage from "./pages/inicial";
 
 function App() {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <CBMCalculator />
+    <div className="w-full py-8 px-4 bg-gray-50">
+      <InicialPage />
     </div>
   );
 }
