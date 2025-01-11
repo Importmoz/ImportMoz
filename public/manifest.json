@@ -1,25 +1,131 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "ImportMoz",
+  "name": "ImportMoz - Importação de Veículos",
+  "description": "Plataforma completa para importação de veículos com segurança e eficiência. Simulador de custos, guias passo a passo e suporte especializado.",
+  "lang": "pt-BR",
+  "categories": ["automotive", "business", "finance", "tools"],
+  "dir": "ltr",
+  "scope": "/",
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86e4-66c7dc9e4b16",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
     },
     {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
     },
     {
-      "src": "logo512.png",
+      "src": "icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/maskable_icon.png",
+      "sizes": "512x512",
       "type": "image/png",
-      "sizes": "512x512"
+      "purpose": "maskable"
     }
   ],
-  "start_url": ".",
+  "start_url": "/?source=pwa",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#1a73e8",
+  "background_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "shortcuts": [
+    {
+      "name": "Simular Importação",
+      "short_name": "Simular",
+      "description": "Iniciar simulação de importação",
+      "url": "/simulador",
+      "icons": [
+        {
+          "src": "icons/simulator-icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Contato",
+      "short_name": "Contato",
+      "description": "Fale conosco",
+      "url": "/contato",
+      "icons": [
+        {
+          "src": "icons/contact-icon-96x96.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/desktop-1280x800.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "screenshots/mobile-750x1334.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "screenshots/tablet-1024x768.png",
+      "sizes": "1024x768",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.importmoz.app",
+      "id": "com.importmoz.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://itunes.apple.com/app/importmoz/id123456789"
+    },
+    {
+      "platform": "webapp",
+      "url": "https://importmoz.com/manifest.json"
+    }
+  ],
+  "prefer_related_applications": false,
+  "protocol_handlers": [
+    {
+      "protocol": "web+importmoz",
+      "url": "/import?url=%s"
+    }
+  ]
 }

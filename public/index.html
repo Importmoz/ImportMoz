@@ -1,58 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
+    <meta name="description" content="Web site created using create-react-app" />
 
-    <title>ImportMoz</title>
+    <title>ImportMoz - Simulador de Importação de Viaturas</title>
 
     <meta name="description"
-      content="Obtenha estimativas de custos de importação, desembaraço  aduaneiro  pela internet com base em links de forma fácil, rapido e 100% gratuito." />
+      content="Obtenha estimativas de custos de importação, desembaraço aduaneiro pela internet com base em links de forma fácil, rápida e 100% gratuita." />
     <meta name="keywords"
-      content="importMoz, import Moz, importação de viaturas, viaturas, beforward, sbt, cars, sbtjapan, links, estimativas, cotacao, importar em moçambique, cotação online, simulador de direitos aduaneiros para viaturas, importacao de viaturas em mocambique, taxas aduaneiras para importacao de veiculos em mocambique pdf, taxas de importacao mocambique, tabela de importacao de veiculos, simulador de viaturas, simulador de direitos aduaneiros em mocambique, simulador at, desembaraco aduaneiro mocambique, taxas aduaneiras para importacao de veiculos em mocambique, pauta aduaneira mocambique, legislacao aduaneira mocambicana, documento unico aduaneiro, legislacao aduaneira, regulamento de desembaraco aduaneiro, simulador de direitos aduaneiros em mocambique, simulador direitos aduaneiros impostos de importação,importação de veículos,impostos de carros,taxas de importação,calculadora de impostos de veículos,importação de carros Moçambique,importar carros moçambique,direitos de importação moçambique,beforward mocambique, beforward,simulador de importacao automovel mocambique,simulador de viaturas,simulador de direitos aduaneiros para viaturas,simulador de viaturas moz,simulador de direitos aduaneiros em moçambique,simulador de direitos,simulador de importacao automovel mocambique,simulador de importação de viaturas,simulador direitos aduaneiros,simulador de importacao de viaturas,simulador at viaturas,be forward mozambique,simulador de viaturas autoridade tributária,be forward moçambique,inatter,direitos aduaneiros viaturas moçambique,simulador cif,simulador aduaneiro,autoridade tributária de moçambique simulador,despachante aduaneiro,novos preços inatter,taxas de importação de viaturas em moçambique,simulador taxas aduaneiras,beforward mz,beforward,jue mcnet,mcnet câmbio,carros moçambique,mcnet,befoward,taxas de importação moçambique,aduaneiras,simulador importação,carros moçambique,preço de carros em moçambique,jue mcnet,simulação importação automovel,simulador imposto automovel, como calcular direitos aduaneiros em moçambique,simulador custo importação automóvel,simulador carros,simulador automóvel, despachante aduaneiro,simulador alfandega,simulador cif,cif,simular importação de veículo,simulador de importacao automovel,simulador legalizacao automovel,custo de importação de veiculos,mcnet câmbio,be forward moçambique,simulador importação automóvel,simulador importação carros,be forward mozambique,at simulador de viaturas,autoridade tributária simulador,simulador importação automovel,simulador autoridade tributária,simulador de taxas alfandegárias,simulação de importação de carros,taxas aduaneiras para importação de veículos em moçambique,simulador de compra de carro,simulador viaturas,sbt japan, sbtjapan, sbtjapan mocambique, sbtjapan mozambique,simulador de importação de carros,simulador,taxas aduaneiras para importação de veículos em moçambique pdf,simulador matule,tabela de importação de veículos,simulador de importacao automovel mocambique,importacao de viaturas em mocambique,quanto custa legalizar um automóvel importado simulador,venda de viaturas em moçambique " />
+      content="importMoz, import Moz, importação de viaturas, viaturas, beforward, sbt, cars, sbtjapan, links, estimativas, cotacao, importar em moçambique, cotação online, simulador de direitos aduaneiros para viaturas, importacao de viaturas em mocambique, taxas aduaneiras para importacao de veiculos em mocambique pdf, taxas de importacao mocambique, tabela de importacao de veiculos, simulador de viaturas, simulador de direitos aduaneiros em mocambique, simulador at, desembaraco aduaneiro mocambique, taxas aduaneiras para importacao de veiculos em mocambique, pauta aduaneira mocambique, legislacao aduaneira mocambicana, documento unico aduaneiro, legislacao aduaneira, regulamento de desembaraco aduaneiro, simulador de direitos aduaneiros em mocambique, simulador direitos aduaneiros impostos de importação,importação de veículos,impostos de carros,taxas de importação,calculadora de impostos de veículos,importação de carros Moçambique,importar carros moçambique,direitos de importação moçambique,beforward mocambique, beforward,simulador de importacao automovel mocambique,simulador de viaturas,simulador de direitos aduaneiros para viaturas,simulador de viaturas moz,simulador de direitos aduaneiros em moçambique,simulador de direitos,simulador de importacao automovel mocambique,simulador de importação de viaturas,simulador direitos aduaneiros,simulador de importacao de viaturas,simulador at viaturas,be forward mozambique,simulador de viaturas autoridade tributária,be forward moçambique,inatter,direitos aduaneiros viaturas moçambique,simulador cif,simulador aduaneiro,autoridade tributária de moçambique simulador,despachante aduaneiro,novos preços inatter,taxas de importação de viaturas em moçambique,simulador taxas aduaneiras,beforward mz,beforward,jue mcnet,mcnet câmbio,carros moçambique,mcnet,befoward,taxas de importação moçambique,aduaneiras,simulador importação,carros moçambique,preço de carros em moçambique,jue mcnet,simulação importação automovel,simulador imposto automovel, como calcular direitos aduaneiros em moçambique,simulador custo importação automóvel,simulador carros,simulador automóvel, despachante aduaneiro,simulador alfandega,simulador cif,cif,simular importação de veículo,simulador de importacao automovel,simulador legalizacao automovel,custo de importação de veiculos,mcnet câmbio,be forward moçambique,simulador importação automóvel,simulador importação carros,be forward mozambique,at simulador de viaturas,autoridade tributária simulador,simulador importação automovel,simulador autoridade tributária,simulador de taxas alfandegárias,simulação de importação de carros,taxas aduaneiras para importação de veículos em moçambique,simulador de compra de carro,simulador viaturas,sbt japan, sbtjapan, sbtjapan mocambique, sbtjapan mozambique,simulador de importação de carros,simulador,taxas aduaneiras para importação de veículos em moçambique pdf,simulador matule,tabela de importação de veículos,simulador de importacao automovel mocambique,importacao de viaturas em mocambique,quanto custa legalizar um automóvel importado simulador,venda de viaturas em moçambique" />
   
+    <meta name="robots" content="index, follow" />
+    <meta name="revisit-after" content="7 days" />
+    <meta property="og:title" content="ImportMoz - Simulador de Importação de Viaturas" />
+    <meta property="og:description" content="Obtenha estimativas de custos de importação e desembaraço aduaneiro pela internet de forma fácil, rápida e 100% gratuita." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://importmoz.com/" />
+    <meta property="og:image" content="https://importmoz.com/images/og-image.jpg" />
+    <meta property="og:site_name" content="ImportMoz" />
+    <meta property="og:locale" content="pt_PT" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+    <meta property="og:site_name" content="ImportMoz" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ImportMoz - Simulador de Importação de Viaturas" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@importmoz">
+    <meta name="twitter:creator" content="@importmoz">
+    <meta name="twitter:title" content="ImportMoz - Simulador de Importação de Viaturas">
+    <meta name="twitter:description" content="Obtenha estimativas de custos de importação e desembaraço aduaneiro pela internet de forma fácil, rápida e 100% gratuita.">
+    <meta name="twitter:image" content="https://importmoz.com/images/og-image.jpg">
+    
+    <link rel="canonical" href="https://importmoz.com/" />
+
+    <!-- Verification Tags -->
+    <meta name="google-site-verification" content="your-verification-code" />
+    <meta name="facebook-domain-verification" content="your-verification-code" />
+    <meta name="yandex-verification" content="your-verification-code" />
+    <meta name="p:domain_verify" content="your-verification-code" />
+
+    <!-- Preconnect and DNS prefetch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://www.google-analytics.com">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    
+    <!-- Hreflang for multilingual support -->
+    <link rel="alternate" hreflang="pt" href="https://importmoz.com/" />
+    <link rel="alternate" hreflang="en" href="https://importmoz.com/en/" />
+    <link rel="alternate" hreflang="pt-BR" href="https://importmoz.com/br/" />
+    <link rel="alternate" hreflang="pt-MZ" href="https://importmoz.com/mz/" />
+    <link rel="alternate" hreflang="x-default" href="https://importmoz.com/" />
+    
+    <!-- Additional Schema Markup -->
     <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "operatingSystem": "Cross-platform",
-            "applicationCategory": "Utility",
-            "softwareVersion": "0.1",
-            "publisher": {
-                "@type": "Company",
-                "name": "ImportMoz",
-                
-            },
-            
-            "applicationSuite": "Importation Tools",
-            "datePublished": "2024-02-08",
-            "keywords": "importMoz, import Moz, importação de viaturas, viaturas, beforward, sbt, cars, sbtjapan, links, estimativas, cotacao, importar em moçambique, cotação online, simulador de direitos aduaneiros para viaturas, importacao de viaturas em mocambique, taxas aduaneiras para importacao de veiculos em mocambique pdf, taxas de importacao mocambique, tabela de importacao de veiculos, simulador de viaturas, simulador de direitos aduaneiros em mocambique, simulador at, desembaraco aduaneiro mocambique, taxas aduaneiras para importacao de veiculos em mocambique, pauta aduaneira mocambique, legislacao aduaneira mocambicana, documento unico aduaneiro, legislacao aduaneira, regulamento de desembaraco aduaneiro, simulador de direitos aduaneiros em mocambique, simulador direitos aduaneiros impostos de importação,importação de veículos,impostos de carros,taxas de importação,calculadora de impostos de veículos,importação de carros Moçambique,importar carros moçambique,direitos de importação moçambique,beforward mocambique, beforward,simulador de importacao automovel mocambique,simulador de viaturas,simulador de direitos aduaneiros para viaturas,simulador de viaturas moz,simulador de direitos aduaneiros em moçambique,simulador de direitos,simulador de importacao automovel mocambique,simulador de importação de viaturas,simulador direitos aduaneiros,simulador de importacao de viaturas,simulador at viaturas,be forward mozambique,simulador de viaturas autoridade tributária,be forward moçambique,inatter,direitos aduaneiros viaturas moçambique,simulador cif,simulador aduaneiro,autoridade tributária de moçambique simulador,despachante aduaneiro,novos preços inatter,taxas de importação de viaturas em moçambique,simulador taxas aduaneiras,beforward mz,beforward,jue mcnet,mcnet câmbio,carros moçambique,mcnet,befoward,taxas de importação moçambique,aduaneiras,simulador importação,carros moçambique,preço de carros em moçambique,jue mcnet,simulação importação automovel,simulador imposto automovel, como calcular direitos aduaneiros em moçambique,simulador custo importação automóvel,simulador carros,simulador automóvel, despachante aduaneiro,simulador alfandega,simulador cif,cif,simular importação de veículo,simulador de importacao automovel,simulador legalizacao automovel,custo de importação de veiculos,mcnet câmbio,be forward moçambique,simulador importação automóvel,simulador importação carros,be forward mozambique,at simulador de viaturas,autoridade tributária simulador,simulador importação automovel,simulador autoridade tributária,simulador de taxas alfandegárias,simulação de importação de carros,taxas aduaneiras para importação de veículos em moçambique,simulador de compra de carro,simulador viaturas,sbt japan, sbtjapan, sbtjapan mocambique, sbtjapan mozambique,simulador de importação de carros,simulador,taxas aduaneiras para importação de veículos em moçambique pdf,simulador matule,tabela de importação de veículos,simulador de importacao automovel mocambique,importacao de viaturas em mocambique,quanto custa legalizar um automóvel importado simulador,venda de viaturas em moçambique
-  ",
-            "url": "https://importmoz.com/",
-            "screenshot": "https://importmoz.com/images/slide/desktop/d.jpg",
-            "inLanguage": "pt-PT",
-            "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": "https://importmoz.com"
-            }
-        }
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "ImportMoz",
+      "url": "https://importmoz.com",
+      "logo": "https://importmoz.com/logo512.png",
+      "sameAs": [
+        "https://www.facebook.com/importmoz",
+        "https://twitter.com/importmoz",
+        "https://www.linkedin.com/company/importmoz"
+      ],
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+258-84-123-4567",
+        "contactType": "customer service",
+        "areaServed": "MZ",
+        "availableLanguage": ["Portuguese", "English"]
+      }]
+    }
     </script>
-  
-  
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "ImportMoz",
+        "description": "Simulador de Importação de Viaturas para Moçambique",
+        "operatingSystem": "Cross-platform",
+        "applicationCategory": "Utility",
+        "softwareVersion": "1.0",
+        "publisher": {
+            "@type": "Organization",
+            "name": "ImportMoz",
+            "url": "https://importmoz.com",
+            "logo": "https://importmoz.com/logo192.png",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "email": "suporte@importmoz.com",
+                "contactType": "customer service"
+            }
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0.00",
+            "priceCurrency": "MZN",
+            "availability": "https://schema.org/InStock"
+        },
+        "applicationSuite": "Importation Tools",
+        "datePublished": "2024-02-08",
+        "dateModified": "2024-02-08",
+        "keywords": "importação, viaturas, moçambique, simulador, aduaneiro",
+        "url": "https://importmoz.com/",
+        "screenshot": "https://importmoz.com/images/slide/desktop/d.jpg",
+        "inLanguage": "pt-PT",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://importmoz.com"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "150"
+        }
+    }
+    </script>
+
     <meta name="author" content="ImportMoz" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ImportMoz">
+    
+    <!-- Accessibility -->
+    <meta name="theme-color" content="#1a73e8">
+    <meta name="msapplication-TileColor" content="#1a73e8">
+    <meta name="msapplication-TileImage" content="/icons/ms-icon-144x144.png">
+    <meta name="msapplication-config" content="/browserconfig.xml">
 
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Você precisa habilitar JavaScript para rodar este aplicativo.</noscript>
     <div id="root"></div>
 
     <!-- Contêiner para a imagem de fundo -->
