@@ -38,7 +38,7 @@ const InitPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <HeaderProvider>
-        <Header />
+        <Header setCurrentPage={setCurrentPage} currentPage={currentPage} />
         <VehicleProvider>
           <InitContent currentPage={currentPage} />
         </VehicleProvider>
