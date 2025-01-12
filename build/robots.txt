@@ -1,3 +1,105 @@
-# https://www.robotstxt.org/robotstxt.html
+# Robots.txt para ImportMoz - Simulador de Importação de Viaturas
+# Última atualização: 2024-02-08
+# Versão: 2.0
+
+# Regras gerais para todos os bots
 User-agent: *
-Disallow:
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /config/
+Disallow: /logs/
+Allow: /
+
+# Taxa de rastreamento recomendada
+Crawl-delay: 10
+
+# Sitemaps disponíveis
+Sitemap: https://importmoz.com/sitemap.xml
+Sitemap: https://importmoz.com/sitemap-images.xml
+Sitemap: https://importmoz.com/sitemap-videos.xml
+Sitemap: https://importmoz.com/sitemap-news.xml
+
+# Regras específicas para principais motores de busca
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 5
+Disallow: /search/
+Disallow: /api/
+Host: https://importmoz.com
+
+User-agent: Googlebot-Image
+Allow: /static/images/
+Disallow: /private-images/
+Crawl-delay: 5
+
+User-agent: Googlebot-Video
+Allow: /static/videos/
+Disallow: /private-videos/
+Crawl-delay: 5
+
+User-agent: Bingbot  
+Allow: /
+Crawl-delay: 5
+Disallow: /search/
+Disallow: /api/
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 5
+Disallow: /search/
+Disallow: /api/
+Clean-param: ref /search/
+
+# Regras para bots adicionais
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 10
+Disallow: /api/
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 5
+Disallow: /api/
+
+User-agent: Applebot
+Allow: /
+Crawl-delay: 5
+Disallow: /api/
+
+User-agent: FacebookExternalHit
+Allow: /
+Crawl-delay: 5
+Disallow: /api/
+
+User-agent: Twitterbot
+Allow: /
+Crawl-delay: 5
+Disallow: /api/
+
+# Diretivas para arquivos específicos
+Disallow: /*.json$
+Disallow: /*.js$
+Disallow: /*.css$
+Disallow: /*.php$
+Disallow: /*.xml$
+Allow: /*.html$
+
+# Diretivas para mídias
+Allow: /static/images/
+Allow: /static/videos/
+Allow: /static/audio/
+Disallow: /private-images/
+Disallow: /private-videos/
+Disallow: /private-audio/
+
+# Mobile
+User-agent: Googlebot-Mobile
+Allow: /
+Crawl-delay: 5
+Disallow: /search/
+
+# Referência ao mobile robots.txt
+Mobile-agent: *
+Disallow: /mobile/
