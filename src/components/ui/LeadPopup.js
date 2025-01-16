@@ -3,8 +3,8 @@ import { Client, Databases, ID } from 'appwrite';
 
 // Configuração do Appwrite
 const client = new Client()
-  .setEndpoint('https://cloud.appwrite.io/v1') // Seu endpoint
-  .setProject('6782f0c100042c18de02'); // Seu project ID
+.setEndpoint(process.env.REACT_APP_APPWRITE_ENDPOINT) // Usando variável de ambiente
+.setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID); // Usando variável de ambiente
 
 const databases = new Databases(client);
 
@@ -58,8 +58,8 @@ const LeadPopup = ({ onClose, userCookie }) => {
 
     try {
       await databases.createDocument(
-        '6782f1670015e193db81', // databaseId
-        '6782f190000bfe9b1d67', // collectionId
+        process.env.REACT_APP_APPWRITE_DATABASE_ID,
+        process.env.REACT_APP_APPWRITE_COLLECTION_ID,
         ID.unique(), // documentId
         finalFormData
       );

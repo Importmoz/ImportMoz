@@ -20,21 +20,21 @@ const ImportSteps = () => {
   const steps = [
     {
       number: 1,
-      scr: require("../../utils/img/1.png"),
+      scr: require("../../utils/img/1.webp"),
       title: "Acesse e Copie o Link",
       description:
         "Visite a página oficial do fornecedor (Ex. BeForward, Sbtjapan), selecione o veículo desejado e copie a URL.",
     },
     {
       number: 2,
-      scr: require("../../utils/img/2.png"),
+      scr: require("../../utils/img/2.webp"),
       title: "Cole no ImportMoz",
       description:
         "Retorne à página do ImportMoz e cole o link copiado, de seguida clique em pesquisar ou no ícone de pesquisa.",
     },
     {
       number: 3,
-      scr: require("../../utils/img/3.png"),
+      scr: require("../../utils/img/3.webp"),
       title: "Verifique os Custos",
       description:
         "Após a verificação, a plataforma mostrará uma estimativa detalhada dos custos de importação do veículo.",

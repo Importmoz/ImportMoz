@@ -5,10 +5,10 @@ import LeadPopup from './LeadPopup';
 import { Client, Databases, Query } from 'appwrite';
 import Cookies from 'js-cookie';
 
-// Configuração do Appwrite
+// Configuração do Appwrite usando variáveis de ambiente
 const client = new Client()
-  .setEndpoint('https://cloud.appwrite.io/v1') // Seu endpoint
-  .setProject('6782f0c100042c18de02'); // Seu project ID
+  .setEndpoint(process.env.REACT_APP_APPWRITE_ENDPOINT) // Usando variável de ambiente
+  .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID); // Usando variável de ambiente
 
 const databases = new Databases(client);
 
@@ -20,28 +20,22 @@ const SearchBar = () => {
   const { setVehicleData } = useContext(VehicleContext);
   const [userCookie, setUserCookie] = useState(null);
 
-  // Função para detectar tamanho da tela
   const isSmallScreen = window.matchMedia('(max-width: 640px)').matches;
 
-  // Gera um identificador único e armazena em um cookie
   useEffect(() => {
     const getOrCreateUserCookie = () => {
-      let cookie = Cookies.get('user_id'); // Tenta obter o cookie existente
+      let cookie = Cookies.get('user_id');
       if (!cookie) {
-        // Gera um novo identificador único (UUID)
-        cookie = crypto.randomUUID(); // Usando a API de criptografia do navegador
-        Cookies.set('user_id', cookie, { expires: 30 }); // Armazena o cookie por 30 dias
+        cookie = crypto.randomUUID();
+        Cookies.set('user_id', cookie, { expires: 30 });
       }
-      setUserCookie(cookie); // Armazena o cookie no estado
+      setUserCookie(cookie);
       return cookie;
     };
-
     getOrCreateUserCookie();
   }, []);
 
-  const onChange = (e) => {
-    setValue(e.target.value);
-  };
+  const onChange = (e) => setValue(e.target.value);
 
   const handleSearchClick = async () => {
     if (!value) {
@@ -56,36 +50,32 @@ const SearchBar = () => {
     }
 
     setLoading(true);
-    setVehicleData(null); // Limpa os dados antes da nova requisição
+    setVehicleData(null);
     try {
       const response = await axios.post('https://importmoz_api.mycloudspaces.com/beforward', { link: value });
-      if (response.data && response.data.Detalhes && response.data.Detalhes.mensagem) {
+      if (response.data?.Detalhes?.mensagem) {
         const mensagem = response.data.Detalhes.mensagem.toLowerCase();
         if (mensagem === 'vehicle sold' || mensagem === 'vehicle under offer') {
           alert(response.data.Detalhes.mensagem);
         } else {
           setVehicleData(response.data);
-
-          // Verifica se o usuário já enviou os dados no Appwrite
-          // Remove o indicador de envio anterior
           localStorage.removeItem('userSubmittedData');
-          
+
           const checkIfUserHasSubmitted = async () => {
             try {
               const response = await databases.listDocuments(
-                '6782f1670015e193db81', // databaseId
-                '6782f190000bfe9b1d67', // collectionId
-                [Query.equal('userCookie', userCookie)] // Filtra pelo campo "userCookie"
+                process.env.REACT_APP_APPWRITE_DATABASE_ID,
+                process.env.REACT_APP_APPWRITE_COLLECTION_ID,
+                [Query.equal('userCookie', userCookie)]
               );
 
               if (response.documents.length === 0) {
-                setShowPopup(true); // Usuário ainda não enviou os dados, exibe o popup
+                setShowPopup(true);
               }
             } catch (error) {
               console.error('Erro ao verificar envios:', error);
             }
           };
-
           checkIfUserHasSubmitted();
         }
       } else {
@@ -95,11 +85,11 @@ const SearchBar = () => {
       console.error('Erro ao fazer a requisição:', error);
     } finally {
       setLoading(false);
-      setValue(''); // Limpa o input após a pesquisa
+      setValue('');
     }
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (showPopup || showBlur) {
       document.body.classList.add('overflow-hidden');
     } else {
@@ -174,10 +164,9 @@ const SearchBar = () => {
         <LeadPopup
           onClose={() => {
             setShowPopup(false);
-            // Armazena no localStorage que o usuário enviou dados
             localStorage.setItem('userSubmittedData', 'true');
           }}
-          userCookie={userCookie} // Passa o cookie para o LeadPopup
+          userCookie={userCookie}
         />
       )}
     </div>
