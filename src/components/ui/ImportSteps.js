@@ -101,7 +101,7 @@ const ImportSteps = () => {
   };
 
   return (
-    <div className="rounded-xl pt-16 sm:pt-28 mb-6 sm:mb-12 relative w-full">
+    <div className="rounded-xl pt-32 sm:pt-28 mb-6 sm:mb-12 relative w-full">
       {/* Background decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10">
         <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-500 opacity-5 rounded-full blur-3xl"></div>
