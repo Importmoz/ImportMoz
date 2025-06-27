@@ -52,7 +52,7 @@ const SearchBar = () => {
     setLoading(true);
     setVehicleData(null);
     try {
-      const response = await axios.post('https://importmoz_api.mycloudspaces.com/beforward', { link: value });
+      const response = await axios.post('https://api.importmoz.com/beforward', { link: value });
       if (response.data?.Detalhes?.mensagem) {
         const mensagem = response.data.Detalhes.mensagem.toLowerCase();
         if (mensagem === 'vehicle sold' || mensagem === 'vehicle under offer') {
