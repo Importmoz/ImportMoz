@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Icon from '@mdi/react';
 import { VehicleContext } from '../../context/VehicleContext';
 import {
@@ -66,20 +66,24 @@ const renderCosts = (costs) => {
   if (!costs) return null;
   return Object.entries(costs).map(([key, value]) => {
     if (typeof value === 'object' && value !== null) {
+      const nestedCosts = renderCosts(value);
+      if (!nestedCosts || !nestedCosts.some(item => item)) return null; // Skip if all nested costs are hidden
       return (
         <div key={key} className="mb-4">
           <h3 className="text-lg font-semibold mb-2">{key}</h3>
-          <div className="pl-4">{renderCosts(value)}</div>
+          <div className="pl-4">{nestedCosts}</div>
         </div>
       );
     }
+    // Hide if value is '0' or 0
+    if (value === '0' || value === 0) return null;
     return (
       <div key={key} className="flex justify-between items-center h-full">
         <span className="text-gray-600">{key}:</span>
         <span className="font-semibold">{value} Mt</span>
       </div>
     );
-  });
+  }).filter(item => item !== null); // Remove null entries
 };
 
 // Loader Component
@@ -92,7 +96,8 @@ const ImageLoader = () => (
 const VehicleDetails = () => {
   const { vehicleData } = useContext(VehicleContext);
   const [modalImageIndex, setModalImageIndex] = useState(null);
-  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const [minLoadingTimeElapsed, setMinLoadingTimeElapsed] = useState(false);
 
   if (!vehicleData || !vehicleData.Detalhes) {
     return <div className="text-center text-gray-500">Nenhum dado de veículo disponível</div>;
@@ -134,22 +139,36 @@ const VehicleDetails = () => {
 
   const openModal = (index) => {
     setIsImageLoading(true);
+    setMinLoadingTimeElapsed(false);
     setModalImageIndex(index);
+    // Ensure loader is visible for at least 500ms
+    setTimeout(() => {
+      setMinLoadingTimeElapsed(true);
+    }, 500);
   };
 
   const closeModal = () => {
     setModalImageIndex(null);
-    setIsImageLoading(true);
+    setIsImageLoading(false);
+    setMinLoadingTimeElapsed(false);
   };
 
   const handleNextImage = () => {
     setIsImageLoading(true);
+    setMinLoadingTimeElapsed(false);
     setModalImageIndex((prevIndex) => (prevIndex + 1) % imageLinks.length);
+    setTimeout(() => {
+      setMinLoadingTimeElapsed(true);
+    }, 500);
   };
 
   const handlePrevImage = () => {
     setIsImageLoading(true);
+    setMinLoadingTimeElapsed(false);
     setModalImageIndex((prevIndex) => (prevIndex - 1 + imageLinks.length) % imageLinks.length);
+    setTimeout(() => {
+      setMinLoadingTimeElapsed(true);
+    }, 500);
   };
 
   const handleOutsideClick = (e) => {
@@ -159,7 +178,13 @@ const VehicleDetails = () => {
   };
 
   const handleImageLoad = () => {
-    setIsImageLoading(false);
+    if (minLoadingTimeElapsed) {
+      setIsImageLoading(false);
+    } else {
+      setTimeout(() => {
+        setIsImageLoading(false);
+      }, 500 - (Date.now() - (Date.now() - 500)));
+    }
   };
 
   return (
@@ -168,7 +193,7 @@ const VehicleDetails = () => {
         {/* Left Column - Main Image and Thumbnails */}
         <div className="w-full md:w-auto">
           <h2 className="text-xl font-semibold mb-2 text-center text-gray-500">
-            {Detalhes.carName || 'Veículo'}
+            {Detalhes.carName}
           </h2>
           <div className="mb-6 w-full md:w-auto">
             <img
@@ -275,6 +300,7 @@ const VehicleDetails = () => {
                 alt={`Vehicle ${modalImageIndex + 1}`}
                 className={`w-full h-auto rounded-lg ${isImageLoading ? 'hidden' : 'block'}`}
                 onLoad={handleImageLoad}
+                onError={() => setIsImageLoading(false)} // Fallback in case of image load failure
               />
               {imageLinks.length > 1 && (
                 <>
